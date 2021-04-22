@@ -18,13 +18,13 @@ int main(int argc, char *argv[])
     srand (time(0));
     cout << "Welcome to Connect Four" << endl;
 
-    Player playerOne;
-    playerOne.placeToken();
-    playerOne.outputBoard();
+    // Player playerOne;
+    // playerOne.placeToken();
+    // playerOne.outputBoard();
 
-    Player playerTwo(true);
-    playerTwo.placeToken();
-    playerTwo.outputBoard();
+    // Player playerTwo(true);
+    // playerTwo.placeToken();
+    // playerTwo.outputBoard();
 
 	bool winner = false;
 
