@@ -8,13 +8,47 @@
 
 
 #include <iostream>
+#include "board.h"
+#include "player.h"
+#include "token.h"
 using std::cout;
-
-const int ROWSIZE = 6;
-const int COLSIZE = 7;
 
 int main(int argc, char *argv[])
 {
-	
+    srand (time(0));
+    cout << "Welcome to Connect Four" << endl;
+
+    Player playerOne;
+    playerOne.placeToken();
+    playerOne.outputBoard();
+
+    Player playerTwo(true);
+    playerTwo.placeToken();
+    playerTwo.outputBoard();
+
+	bool winner = false;
+
+	while(!winner)
+	{
+        playerOne.move(&playerTwo);
+        playerTwo.move(&playerOne);
+
+        cout << "Player 1" << endl;
+        playerOne.outputBoard();
+        cout << "Player 2" << endl;
+        playerTwo.outputBoard();
+
+        if (playerOne.hasLost())
+        {
+            cout << "Player two has won the game!" << endl;
+            winner = true;
+        }
+        else if (playerTwo.hasLost())
+        {
+            cout << "Player one has won the game!" << endl;
+            winner = true;
+        }
+	}
+
 	return 0;
 }

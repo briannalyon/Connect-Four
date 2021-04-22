@@ -5,16 +5,28 @@
  * @version 0.1
  * @date 2021-04-15
  */
-#ifdef PLAYER_H
+#ifndef PLAYER_H
 #define PLAYER_H
-
+#include "board.h"
 
 class Player
 {
     public:
-            //player name/number
-            //player token color
+            Player();
+            Player(bool);
+            void manuallyPlaceToken(int token);
+            void randomlyPlaceToken(int token);
+            bool isAutomaticPlacement();
+            int getPlacementCol(int col);
+            void placeToken();
+            void outputBoard();
+            Coordinate getCoordinate();
+            //bool registerMove();//Coordinate coordinate);
+            void move(Player *opponent);
+            bool hasLost();
     private:
+        Board board;
+        bool isComputer;
 };
 
 #endif

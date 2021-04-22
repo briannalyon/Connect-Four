@@ -6,8 +6,14 @@
  * @date 2021-04-15
  */
 
-#ifdef TOKEN_H
+#ifndef TOKEN_H
 #define TOKEN_H
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+const string TOKEN_COLOR = {"RED", "BLUE"};
 
 class Token
 {
