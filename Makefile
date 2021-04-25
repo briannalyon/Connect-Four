@@ -30,7 +30,7 @@ ifeq ($(OS),Windows_NT)
 MAIN	:= main.exe
 SOURCEDIRS	:= $(SRC)
 INCLUDEDIRS	:= $(INCLUDE)
-LIBDIRS		:= $(LIB)
+#LIBDIRS		:= $(LIB)
 FIXPATH = $(subst /,\,$1)
 RM			:= del /q /f
 MD	:= mkdir
@@ -71,14 +71,22 @@ $(OUTPUT):
 	$(MD) $(OUTPUT)
 
 $(MAIN): $(OBJECTS) 
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTMAIN) $(OBJECTS) $(LFLAGS) $(LIBS)
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTMAIN) $(OBJECTS) $(LFLAGS) $(LIBS)
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
-.cpp.o:
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+# board.o: board.cpp board.h
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+# token.o: token.cpp token.h
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+# coordinate.o: coordinate.cpp coordinate.h
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+# player.o: player.cpp player.h
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+# main.o: main.cpp
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
 
 .PHONY: clean
 clean:

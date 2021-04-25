@@ -6,11 +6,12 @@
  * @date 2021-04-15
  */
 
-
 #include <iostream>
 #include "board.h"
 #include "player.h"
 #include "token.h"
+#include "coordinate.h"
+
 using std::cout;
 
 int main(int argc, char *argv[])
@@ -18,13 +19,13 @@ int main(int argc, char *argv[])
     srand (time(0));
     cout << "Welcome to Connect Four" << endl;
 
-    // Player playerOne;
-    // playerOne.placeToken();
-    // playerOne.outputBoard();
+    Player playerOne;
+    playerOne.placeToken();
+    playerOne.outputBoard();
 
-    // Player playerTwo(true);
-    // playerTwo.placeToken();
-    // playerTwo.outputBoard();
+    Player playerTwo(true);
+    playerTwo.placeToken();
+    playerTwo.outputBoard();
 
 	bool winner = false;
 
@@ -34,9 +35,9 @@ int main(int argc, char *argv[])
         playerTwo.move(&playerOne);
 
         cout << "Player 1" << endl;
-        playerOne.outputBoard();
+        playerOne.outputBoard(); // UPDATE GRAPHICS
         cout << "Player 2" << endl;
-        playerTwo.outputBoard();
+        playerTwo.outputBoard(); // UPDATE GRAPHICS
 
         if (playerOne.hasLost())
         {

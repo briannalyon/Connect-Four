@@ -21,7 +21,8 @@ class Player
             void placeToken();
             void outputBoard();
             Coordinate getCoordinate();
-            //bool registerMove();//Coordinate coordinate);
+            bool registerMove();
+            //Coordinate coordinate);
             void move(Player *opponent);
             bool hasLost();
     private:

@@ -62,6 +62,11 @@ int Coordinate::convertCol(int col) {
 }
 
 int findAvaiableRow(int col) {
-
-    // FIND ROW
+    Board board;
+    for(int i = 0; i < COLSIZE; i++){
+        char symbol = board.getBoard(i, col);
+        if (symbol != '*') {
+            return i - 1;
+        }
+    }
 }

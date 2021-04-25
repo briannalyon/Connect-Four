@@ -28,9 +28,7 @@ class Board
         bool isEmpty(Coordinate coordinate);
         void updateBoard(Coordinate coordinate, char tokenColor);
         char getColor(Coordinate coordinate);
-        
-        //load initial board graphics
-        //update board with token placement and token color
+        char getBoard(int row, int col);
     private:
         char board[ROWSIZE][COLSIZE];
 };

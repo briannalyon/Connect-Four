@@ -24,6 +24,7 @@ private:
     int convertCol(int col);
     int row;
     int col;
+    Board board;
 };
 
 #endif

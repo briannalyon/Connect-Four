@@ -7,7 +7,7 @@
  */
 
 #include "board.h"
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
 Board::Board() {
     for (int row = 0; row < ROWSIZE; row++) {
@@ -49,7 +49,7 @@ bool Board::isClear(Coordinate coordinate)
     int row = coordinate.getRow();
     int col = coordinate.getCol();
 
-    if (board[row][col] != '-') {
+    if (board[row][col] != '*') {
         return false;
     }
     return true;
@@ -84,5 +84,9 @@ void Board::updateBoard(Coordinate coordinate, char tokenColor) {
 char Board::getColor(Coordinate coordinate) {
     int row = coordinate.getRow();
     int col = coordinate.getCol();
+    return board[row][col];
+}
+
+char Board::getBoard(int row, int col) {
     return board[row][col];
 }
