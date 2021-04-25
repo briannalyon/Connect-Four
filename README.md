@@ -1,5 +1,7 @@
 # Connect Four
 
+Testing branching
+
 ## NOTES:
 
 ## 5. Create a new branch for each new feature
