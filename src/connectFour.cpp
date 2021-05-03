@@ -12,6 +12,6 @@ int main() {
 
     Player playerOne('X', false); // X stands for a color
     playerOne.outputBoard();
-    playerOne.placeToken();
+    playerOne.move();
     return 0;
 }

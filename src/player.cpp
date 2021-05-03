@@ -16,7 +16,7 @@
         bool placed = false;
         
         while (!placed) {
-            get();
+            coordinate = get();
             placed = board.placeToken(coordinate, token);
             cout << "PLACED = " << placed << endl;
         }
@@ -29,7 +29,7 @@
         bool placed = false;
 
         while (!placed) {
-            board.randomizeCoordinate();
+            coordinate = board.randomizeCoordinate();
             placed = board.placeToken(coordinate, token);
         }
         board.display();
@@ -38,7 +38,7 @@
     // bool Player::isAutomatic()
     //int Player::getPlacement(int col)
 
-    void Player::placeToken() {
+    void Player::move() {
         cout << "Placing Player Token" << endl;
         isComputer ? randomlyPlace(token) : manuallyPlace(token);
     }
@@ -49,33 +49,30 @@
 
     Coordinate Player::get() {
         Coordinate coordinate;
-        int row, col = -1;
         bool set = false;
-
         if (isComputer) {
             board.randomizeCoordinate();
         } else {
             while (!set) {
                 cout << "Enter valid column: ";
-                cin >> col;
-                row = board.findAvailableRow(col);
-                set = board.setCoordinate(row, col);
-                cout << "set = " << set << endl;
+                cin >> coordinate.col;
+                coordinate.row = board.findAvailableRow(coordinate.col);
+                set = board.setCoordinate(coordinate.row, coordinate.col);
             }
         }
         return coordinate;
     }
 
-    void Player::move(Player *opponent) {
-        bool registered = false;
-        Coordinate choice;
+    // void Player::move(Player *opponent) {
+    //     bool registered = false;
+    //     Coordinate choice;
 
-        while (!registered) {
-            choice = get();
-            registered = opponent->registerMove(choice);
-            // Print Error Here
-        }
-    }
+    //     while (!registered) {
+    //         choice = get();
+    //         registered = opponent->registerMove(choice);
+    //         // Print Error Here
+    //     }
+    // }
 
     bool Player::hasWon() {
         return board.isConnected();

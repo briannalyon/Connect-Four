@@ -1,14 +1,14 @@
 #ifndef COORDINATE_H
 #define COORDINATE_H
 
-class Coordinate {
-public:
-    int getRow();
-    int getCol();
-    bool set(int row, int col);
-private:
+#include <iostream>
+using std::cout;
+using std::endl;
+
+struct Coordinate {
     int row;
     int col;
+    void set(int row, int col);
 };
 
 #endif

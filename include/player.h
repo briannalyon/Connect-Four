@@ -13,10 +13,10 @@ public:
     void randomlyPlace(int token);
     // bool isAutomatic()
     int getPlacement(int col);
-    void placeToken(); // THIS IS ALSO IN BOARD.H
+    void move(); 
     void outputBoard();
     Coordinate get();
-    void move(Player *opponent);
+    //void move(Player *opponent);
     bool hasWon();
     bool registerMove();
     bool registerMove(Coordinate coordinate);

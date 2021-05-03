@@ -19,39 +19,36 @@
         cout << endl;
     }
 
-    // INFINITE LOOP HERE?
     bool Board::placeToken(Coordinate coordinate, char token) {
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
+        int row = coordinate.row;
+        int col = coordinate.col;
 
         if (!inBounds(coordinate) || !isClear(coordinate)) {
             return false;
         }
-        board[row][col] = token;
+        board[row][col - 1] = token;
         return true;
     }
 
     bool Board::isClear(Coordinate coordinate) {
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
-
-        if (board[row][col] != 'O') {
-            return false;
-        }
-        return true;
+        int row = coordinate.row;
+        int col = coordinate.col;
+        bool check;
+        (board[row][col] != 'O') ? check = false : check = true;
+        return check;
     }
 
     bool Board::inBounds(Coordinate coordinate) {
-        if (coordinate.getCol() > COLSIZE || coordinate.getRow() > ROWSIZE) {
-            // check for less than 1
-            return false;
-        }
-        return true;
+        int row = coordinate.row;
+        int col = coordinate.col;
+        bool check;
+        ((col > COLSIZE || col < 1) || (row > ROWSIZE || row < 1)) ? check = false : check = true;
+        return check;
     }
 
     void Board::updateBoard(Coordinate coordinate, char token) {
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
+        int row = coordinate.row;
+        int col = coordinate.col;
         board[row][col] = token;
     }
 
@@ -59,16 +56,16 @@
 
     // }
 
-    void Board::randomizeCoordinate() {
+    Coordinate Board::randomizeCoordinate() {
         Coordinate coordinate;
         int col = 1 + rand() % 10;
         coordinate.set(col, findAvailableRow(col));
+        return coordinate;
     }
 
     bool Board::setCoordinate(int row, int col) {
         Coordinate coordinate;
         if ((col > COLSIZE || col < 1) || row == -1) {
-            cout << "IM FALSE BITCH" << endl;
             return false;
         }
         coordinate.set(row,col);
