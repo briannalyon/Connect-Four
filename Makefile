@@ -12,7 +12,7 @@ CXXFLAGS	:= -std=c++11 -Wall -Wextra -g -pedantic -pedantic-errors
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+#LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 # define output directory
 OUTPUT	:= output
@@ -30,7 +30,7 @@ ifeq ($(OS),Windows_NT)
 MAIN	:= main.exe
 SOURCEDIRS	:= $(SRC)
 INCLUDEDIRS	:= $(INCLUDE)
-LIBDIRS		:= $(LIB)
+#LIBDIRS		:= $(LIB)
 FIXPATH = $(subst /,\,$1)
 RM			:= del /q /f
 MD	:= mkdir
