@@ -13,7 +13,7 @@ public:
     void randomlyPlace(int token);
     // bool isAutomatic()
     int getPlacement(int col);
-    void placeToken(int token); // THIS IS ALSO IN BOARD.H
+    void placeToken(); // THIS IS ALSO IN BOARD.H
     void outputBoard();
     Coordinate get();
     void move(Player *opponent);

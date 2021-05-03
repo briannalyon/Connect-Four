@@ -9,7 +9,7 @@
     }
 
     void Board::display() {
-        cout << " 1 2 3 4 5 6 7" << endl;
+        cout << "1 2 3 4 5 6 7" << endl;
         for (int row = 0; row < ROWSIZE; ++row) {
             for (int col = 0; col < COLSIZE; ++col) {
                 cout << board[row][col] << ' ';
@@ -19,6 +19,7 @@
         cout << endl;
     }
 
+    // INFINITE LOOP HERE?
     bool Board::placeToken(Coordinate coordinate, char token) {
         int row = coordinate.getRow();
         int col = coordinate.getCol();
@@ -66,7 +67,8 @@
 
     bool Board::setCoordinate(int row, int col) {
         Coordinate coordinate;
-        if (!(col < COLSIZE && col > 0) && row != -1) {
+        if ((col > COLSIZE || col < 1) || row == -1) {
+            cout << "IM FALSE BITCH" << endl;
             return false;
         }
         coordinate.set(row,col);

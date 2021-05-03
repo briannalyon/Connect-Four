@@ -18,6 +18,7 @@
         while (!placed) {
             get();
             placed = board.placeToken(coordinate, token);
+            cout << "PLACED = " << placed << endl;
         }
         board.display();
     }
@@ -37,10 +38,9 @@
     // bool Player::isAutomatic()
     //int Player::getPlacement(int col)
 
-    void Player::placeToken(int token) {
-        bool automatic = isComputer;
+    void Player::placeToken() {
         cout << "Placing Player Token" << endl;
-        (!automatic) ? manuallyPlace(token) : randomlyPlace(token);
+        isComputer ? randomlyPlace(token) : manuallyPlace(token);
     }
      
     void Player::outputBoard() {
@@ -60,6 +60,7 @@
                 cin >> col;
                 row = board.findAvailableRow(col);
                 set = board.setCoordinate(row, col);
+                cout << "set = " << set << endl;
             }
         }
         return coordinate;

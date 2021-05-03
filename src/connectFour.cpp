@@ -1,9 +1,17 @@
 #include <iostream>
-#include "coordinate.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "player.h"
 using std::cout;
 using std::endl;
 
 int main() {
-    cout << "Hello World" << endl;
+    srand(time(0));
+    cout << "Welcome to Connect Four!" << endl;
+
+    Player playerOne('X', false); // X stands for a color
+    playerOne.outputBoard();
+    playerOne.placeToken();
     return 0;
 }
