@@ -8,6 +8,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "board.h"
+#include "coordinate.h"
 
 class Player
 {
@@ -16,7 +17,7 @@ class Player
             Player(bool);
             void manuallyPlaceToken(int token);
             void randomlyPlaceToken(int token);
-            bool isAutomaticPlacement();
+            //bool isAutomaticPlacement();
             int getPlacementCol(int col);
             void placeToken();
             void outputBoard();
@@ -25,6 +26,7 @@ class Player
             //Coordinate coordinate);
             void move(Player *opponent);
             bool hasLost();
+            bool registerMove(Coordinate coordinate);
     private:
         Board board;
         bool isComputer;

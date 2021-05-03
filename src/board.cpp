@@ -87,6 +87,42 @@ char Board::getColor(Coordinate coordinate) {
     return board[row][col];
 }
 
-char Board::getBoard(int row, int col) {
-    return board[row][col];
+// char Board::getBoard(int row, int col) {
+//     return board[row][col];
+// }
+void Board::randomizeCoordinate() {
+    Coordinate coordinate;
+    int col = 1 + rand() % 10;
+    coordinate.set(col, findAvaiableRow(col));
+}
+
+bool Board::setCoordinate(char rowIn, int colIn) {
+    Coordinate coordinate;
+    int r = findAvaiableRow(colIn);
+    int c = coordinate.convertCol(colIn);
+
+    if (r == -1) {
+        cout << "Invalid row character " << rowIn << endl;
+        return false;
+    }
+    if (c == -1) {
+        cout << "Invalid column value " << colIn << endl;
+        return false;
+    }
+    coordinate.set(c,r);
+    return true;
+}
+
+int Board::findAvaiableRow(int col) {
+    for(int i = 0; i < COLSIZE; i++) {
+        char symbol = board[i][col];
+        if (symbol != '*') {
+            return i - 1;
+        }
+    }
+    return -1;
+}
+
+bool Board::fourConnected() {
+    return false;
 }

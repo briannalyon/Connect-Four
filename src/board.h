@@ -28,7 +28,10 @@ class Board
         bool isEmpty(Coordinate coordinate);
         void updateBoard(Coordinate coordinate, char tokenColor);
         char getColor(Coordinate coordinate);
-        char getBoard(int row, int col);
+        void randomizeCoordinate();
+        bool setCoordinate(char rowIn, int colIn);
+        int findAvaiableRow(int col);
+        bool fourConnected();
     private:
         char board[ROWSIZE][COLSIZE];
 };

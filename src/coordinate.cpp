@@ -18,38 +18,9 @@ int Coordinate::getCol() {
     return col;
 }
 
-bool Coordinate::set(char rowIn, int colIn) {
-    int r = findAvaiableRow(colIn);
-    int c = convertCol(colIn);
-
-    if (r == -1) {
-        cout << "Invalid row character " << rowIn << endl;
-        return false;
-    }
-    if (c == -1) {
-        cout << "Invalid column value " << colIn << endl;
-        return false;
-    }
-    row = r;
-    col = c;
-    return true;
-}
-
-void Coordinate::randomize() {
-    int col = 1 + rand() % 10;
-    row = findAvaiableRow(col);
-    set(row, col);
-}
-
-void Coordinate::display()
-{
-    cout << "You chose column: " << col << endl;
-    cout << "Next row available:  " << row << endl;
-}
-
 int Coordinate::convertRow(char row) {
-    if (col >= 1 && col <= 7) {
-        return --col;
+    if (row >= 1 && row <= 7) {
+        return --row;
     }
     return -1;
 }
@@ -61,12 +32,14 @@ int Coordinate::convertCol(int col) {
     return -1;
 }
 
-int findAvaiableRow(int col) {
-    Board board;
-    for(int i = 0; i < COLSIZE; i++){
-        char symbol = board.getBoard(i, col);
-        if (symbol != '*') {
-            return i - 1;
-        }
-    }
+bool Coordinate::set(char rowIn, int colIn) {
+    row = rowIn;
+    col = colIn;
+    return true;
+}
+
+void Coordinate::display()
+{
+    cout << "You chose column: " << col << endl;
+    cout << "Next row available:  " << row << endl;
 }

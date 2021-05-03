@@ -14,17 +14,14 @@ class Coordinate
 public:
 	int getRow();
     int getCol();
-	bool set(char rowIn, int colIn);
-    void randomize();
-    void display();
-    int findAvaiableRow(int col);
-
-private:
     int convertRow(char row);
     int convertCol(int col);
+	bool set(char rowIn, int colIn);
+    void display();
+
+private:
     int row;
     int col;
-    Board board;
 };
 
 #endif
