@@ -1,101 +1,89 @@
-/**
- * @file player.cpp
- * @author Josie Wicklund and Brianna Lyon
- * @brief 
- * @version 0.1
- * @date 2021-04-15
- */
-
 #include "player.h"
 
-Player::Player() {
-    isComputer = false;
-}
-
-Player::Player(bool ic) {
-    isComputer = ic;
-}
-
-void Player::manuallyPlaceToken(int token) {
-    Coordinate coordinate;
-    token = 'r'; // temp
-    bool placed = false;
-    while(!placed) {
-        //coordinate = getCoordinate();
-        placed = board.placeToken(coordinate, token);//fix later
+    Player::Player(char token) {
+        this->token = token;
+        isComputer = false;
     }
-    board.display();
-}
-void Player::randomlyPlaceToken(int token) {
-    // get random column
-    Coordinate coordinate;
-    token = 'r';
-    bool placed = false;
-    while(!placed) {
-        board.randomizeCoordinate();
-        placed = board.placeToken(coordinate, token);//fix later
+
+    Player::Player(char token, bool isComputer) {
+        this->token = token;
+        this->isComputer = isComputer;
     }
-    board.display();
-}
 
-void Player::placeToken()
-{
-    bool automatic = true;//isAutomaticPlacement();
-    //Coordinate coordinate;
-    int token = 'r';
-    cout << endl << "Placing Player ___ Token\n";
-
-    if (!automatic) {
-        manuallyPlaceToken(token); 
-    } else {
-        randomlyPlaceToken(token);
+    void Player::manuallyPlace(int token) {
+        Coordinate coordinate;
+        this->token = token;
+        bool placed = false;
+        
+        while (!placed) {
+            get();
+            placed = board.placeToken(coordinate, token);
+        }
+        board.display();
     }
-}
 
-void Player::outputBoard() {
-    board.display();
-}
+    void Player::randomlyPlace(int token) {
+        Coordinate coordinate;
+        this->token = token;
+        bool placed = false;
 
-Coordinate Player::getCoordinate() {
-    Coordinate coordinate;
-    int row = -1;
-    int col = -1;
-    bool isSet = false;
+        while (!placed) {
+            board.randomizeCoordinate();
+            placed = board.placeToken(coordinate, token);
+        }
+        board.display();
+    }
 
-    if (isComputer) {
-        board.randomizeCoordinate();
-    } else {
-        while(!isSet) {
-            cout << "Enter the column: ";
-            cin >> col;
-            row = board.findAvaiableRow(col);
-            isSet = board.setCoordinate(row, col);
+    // bool Player::isAutomatic()
+    //int Player::getPlacement(int col)
+
+    void Player::placeToken(int token) {
+        bool automatic = isComputer;
+        cout << "Placing Player Token" << endl;
+        (!automatic) ? manuallyPlace(token) : randomlyPlace(token);
+    }
+     
+    void Player::outputBoard() {
+        board.display();
+    }
+
+    Coordinate Player::get() {
+        Coordinate coordinate;
+        int row, col = -1;
+        bool set = false;
+
+        if (isComputer) {
+            board.randomizeCoordinate();
+        } else {
+            while (!set) {
+                cout << "Enter valid column: ";
+                cin >> col;
+                row = board.findAvailableRow(col);
+                set = board.setCoordinate(row, col);
+            }
+        }
+        return coordinate;
+    }
+
+    void Player::move(Player *opponent) {
+        bool registered = false;
+        Coordinate choice;
+
+        while (!registered) {
+            choice = get();
+            registered = opponent->registerMove(choice);
+            // Print Error Here
         }
     }
-    return coordinate;
-}
 
-void Player::move(Player *opponent)
-{
-    bool registered = false;
-    Coordinate choice;
-    
-    while(! registered) {
-        choice = getCoordinate();
-        registered = opponent->registerMove(choice);
-        // print out errosr if not registered
+    bool Player::hasWon() {
+        return board.isConnected();
     }
-}
 
-bool Player::registerMove(Coordinate coordinate)
-{
-    if (board.placeToken(coordinate, 'r')) {
-        return true;
+    //bool Player::registerMove()
+
+    bool Player::registerMove(Coordinate coordinate) {
+        bool check;
+        board.placeToken(coordinate, token) ? check = true : check = false;
+        return check;
     }
-    return false;
-}
-
-bool Player::hasLost()
-{
-    return board.fourConnected();
-}

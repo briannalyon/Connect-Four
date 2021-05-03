@@ -1,128 +1,86 @@
-/**
- * @file board.cpp
- * @author Josie Wicklund and Brianna Lyon
- * @brief 
- * @version 0.1
- * @date 2021-04-15
- */
+    #include "board.h"
 
-#include "board.h"
-//#include <SFML/Graphics.hpp>
-
-Board::Board() {
-    for (int row = 0; row < ROWSIZE; row++) {
-        for (int col = 0; col < COLSIZE; col++) {
-            board[row][col] = '*';
+    Board::Board() {
+        for (int row = 0; row < ROWSIZE; ++row) {
+            for (int col = 0; col < COLSIZE; ++col) {
+                board[row][col] = 'O';
+            }
         }
     }
-}
 
-// USE SFML GRAPHICS IN HERE SOMEHOW
-void Board::display() {
-    cout << "  1 2 3 4 5 6 7" << endl;
-    for (int row = 0; row < ROWSIZE; row++) {
-        for (int col = 0; col < COLSIZE; col++) {
-            cout << board[row][col] << ' ';
+    void Board::display() {
+        cout << " 1 2 3 4 5 6 7" << endl;
+        for (int row = 0; row < ROWSIZE; ++row) {
+            for (int col = 0; col < COLSIZE; ++col) {
+                cout << board[row][col] << ' ';
+            }
+            cout << endl;
         }
-         cout << endl;
-    }
-    cout << endl;
-}
-
-bool Board::placeToken(Coordinate coordinate, char tokenColor) {
-    int row = coordinate.getRow(); // does the 
-    int col = coordinate.getCol();
-
-    if (!isInBounds(coordinate)) {
-        return false;
+        cout << endl;
     }
 
-    if (!isClear(coordinate)) {
-        return false;
-    }
-    board[row][col] = tokenColor;
-    return true;
-}
+    bool Board::placeToken(Coordinate coordinate, char token) {
+        int row = coordinate.getRow();
+        int col = coordinate.getCol();
 
-bool Board::isClear(Coordinate coordinate)
-{
-    int row = coordinate.getRow();
-    int col = coordinate.getCol();
-
-    if (board[row][col] != '*') {
-        return false;
-    }
-    return true;
-}
-
-bool Board::isInBounds(Coordinate coordinate) {
-    if (coordinate.getCol() > COLSIZE) {
-        return false;
-    } else if (coordinate.getRow() > ROWSIZE) {
-        return false;
-    }
-    return true;
-} 
-
-bool Board::isEmpty(Coordinate coordinate) {
-    int row = coordinate.getRow();
-    int col = coordinate.getCol();
-
-    if(board[row][col] == '*') {
+        if (!inBounds(coordinate) || !isClear(coordinate)) {
+            return false;
+        }
+        board[row][col] = token;
         return true;
     }
-    return false;
-}
 
-// USE SFML GRAPHICS IN HERE SOMEHOW
-void Board::updateBoard(Coordinate coordinate, char tokenColor) {
-    int row = coordinate.getRow();
-    int col = coordinate.getCol();
-    board[row][col] = tokenColor; 
-}
+    bool Board::isClear(Coordinate coordinate) {
+        int row = coordinate.getRow();
+        int col = coordinate.getCol();
 
-char Board::getColor(Coordinate coordinate) {
-    int row = coordinate.getRow();
-    int col = coordinate.getCol();
-    return board[row][col];
-}
-
-// char Board::getBoard(int row, int col) {
-//     return board[row][col];
-// }
-void Board::randomizeCoordinate() {
-    Coordinate coordinate;
-    int col = 1 + rand() % 10;
-    coordinate.set(col, findAvaiableRow(col));
-}
-
-bool Board::setCoordinate(char rowIn, int colIn) {
-    Coordinate coordinate;
-    int r = findAvaiableRow(colIn);
-    int c = coordinate.convertCol(colIn);
-
-    if (r == -1) {
-        cout << "Invalid row character " << rowIn << endl;
-        return false;
-    }
-    if (c == -1) {
-        cout << "Invalid column value " << colIn << endl;
-        return false;
-    }
-    coordinate.set(c,r);
-    return true;
-}
-
-int Board::findAvaiableRow(int col) {
-    for(int i = 0; i < COLSIZE; i++) {
-        char symbol = board[i][col];
-        if (symbol != '*') {
-            return i - 1;
+        if (board[row][col] != 'O') {
+            return false;
         }
+        return true;
     }
-    return -1;
-}
 
-bool Board::fourConnected() {
-    return false;
-}
+    bool Board::inBounds(Coordinate coordinate) {
+        if (coordinate.getCol() > COLSIZE || coordinate.getRow() > ROWSIZE) {
+            // check for less than 1
+            return false;
+        }
+        return true;
+    }
+
+    void Board::updateBoard(Coordinate coordinate, char token) {
+        int row = coordinate.getRow();
+        int col = coordinate.getCol();
+        board[row][col] = token;
+    }
+
+    // char Board::getTokenColor(Coordinate coordinate) {
+
+    // }
+
+    void Board::randomizeCoordinate() {
+        Coordinate coordinate;
+        int col = 1 + rand() % 10;
+        coordinate.set(col, findAvailableRow(col));
+    }
+
+    bool Board::setCoordinate(int row, int col) {
+        Coordinate coordinate;
+        if (!(col < COLSIZE && col > 0) && row != -1) {
+            return false;
+        }
+        coordinate.set(row,col);
+        return true;
+    }
+
+    int Board::findAvailableRow(int col) {
+        for (int i = 0; i < COLSIZE; ++i) {
+            char symbol = board[i][col];
+            if (symbol != 'O') { return i - 1; }
+        }
+        return -1; // No row available in column
+    }
+
+    bool Board::isConnected() {
+        return false;
+    }     
