@@ -1,10 +1,5 @@
 #include "player.h"
 
-    Player::Player(char token) {
-        this->token = token;
-        isComputer = false;
-    }
-
     Player::Player(char token, bool isComputer, Board *board) {
         this->token = token;
         this->isComputer = isComputer;
@@ -36,9 +31,6 @@
         board->display();
     }
 
-    // bool Player::isAutomatic()
-    //int Player::getPlacement(int col)
-
     void Player::move() {
         cout << "Placing Player Token" << endl;
         isComputer ? randomlyPlace(token) : manuallyPlace(token);
@@ -66,6 +58,6 @@
         return coordinate;
     }
 
-    bool Player::hasWon() {
-        return board->isConnected();
+    bool Player::hasWon(char token) {
+        return board->isConnected(token);
     }

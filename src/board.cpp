@@ -6,8 +6,16 @@
                 board[row][col] = 'O';
             }
         }
+        //call function to render board here 
+    }
+    void Board::intitalize() {
+        //initalize window
+    }
+    void Board::render() {
+        //puts rectangles && circles on window
     }
 
+    // Call board render instead of display for SFML
     void Board::display() {
         cout << "1 2 3 4 5 6 7" << endl;
         for (int row = 0; row < ROWSIZE; ++row) {
@@ -66,7 +74,7 @@
 
     bool Board::setCoordinate(int row, int col) {
         Coordinate coordinate;
-        if ((col > COLSIZE || col < 1) || row == -1) {
+        if ((col > COLSIZE || col < 0) || row == -1) {
             return false;
         }
         coordinate.set(row,col);
@@ -87,6 +95,37 @@
         return -1; // No row available in column
     }
 
-    bool Board::isConnected() {
+    bool Board::isConnected(char token) {
+        for (int col = 0; col <= 6; ++col) {
+            for (int row = 0; row <= 2; ++row) {
+                if (board[row][col] == token && board[row + 1][col] == token && board [row + 2][col] == token && board[row + 3][col] == token) {
+                    return true;
+                }
+            }
+        }
+
+        for (int col = 0; col <= 3; ++col) {
+            for (int row = 0; row <= 5; ++row) {
+                if (board[row][col] == token && board[row][col + 1] == token && board [row][col + 2] == token && board[row][col + 3] == token) {
+                    return true;
+                }
+            }
+        }
+
+        for (int col = 0; col <= 3; ++col) {
+            for (int row = 0; row <= 2; ++row) {
+                if (board[row][col] == token && board[row + 1][col + 1] == token && board [row + 2][col + 2] == token && board[row + 3][col + 3] == token) {
+                    return true;
+                }
+            }
+        }
+
+        for (int col = 0; col <= 3; ++col) {
+            for (int row = 5; row >= 3; --row) {
+                if (board[row][col] == token && board[row - 1][col + 1] == token && board [row - 2][col + 2] == token && board[row - 3][col + 3] == token) {
+                    return true;
+                }
+            }
+        }
         return false;
     }     

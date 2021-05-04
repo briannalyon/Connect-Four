@@ -13,6 +13,8 @@ const int COLSIZE = 7;
 class Board {
 public:
     Board();
+    void intitalize();
+    void render();
     void display();
     bool placeToken(Coordinate coordinate, char token);
     bool isClear(Coordinate coordinate);
@@ -22,7 +24,7 @@ public:
     Coordinate randomizeCoordinate();
     bool setCoordinate(int row, int col);
     int findAvailableRow(int col);
-    bool isConnected();
+    bool isConnected(char token);
 private:
     char board[ROWSIZE][COLSIZE];
 };
