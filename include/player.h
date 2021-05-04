@@ -7,7 +7,6 @@
 
 class Player {
 public:
-    Player(char token);
     Player(char token, bool isComputer, Board *board);
     void manuallyPlace(int token);
     void randomlyPlace(int token);
@@ -15,7 +14,7 @@ public:
     void move(); 
     void outputBoard();
     Coordinate get();
-    bool hasWon();
+    bool hasWon(char token);
 private:
     Board *board;
     char token;
