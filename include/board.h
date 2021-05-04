@@ -19,7 +19,7 @@ public:
     bool inBounds(Coordinate coordinate);
     void updateBoard(Coordinate coordinate, char token);
     //char getTokenColor(Coordinate coordinate);
-    void randomizeCoordinate();
+    Coordinate randomizeCoordinate();
     bool setCoordinate(int row, int col);
     int findAvailableRow(int col);
     bool isConnected();

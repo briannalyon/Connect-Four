@@ -8,20 +8,16 @@
 class Player {
 public:
     Player(char token);
-    Player(char token, bool isComputer);
+    Player(char token, bool isComputer, Board *board);
     void manuallyPlace(int token);
     void randomlyPlace(int token);
-    // bool isAutomatic()
     int getPlacement(int col);
-    void placeToken(); // THIS IS ALSO IN BOARD.H
+    void move(); 
     void outputBoard();
     Coordinate get();
-    void move(Player *opponent);
     bool hasWon();
-    bool registerMove();
-    bool registerMove(Coordinate coordinate);
 private:
-    Board board;
+    Board *board;
     char token;
     bool isComputer;
 };

@@ -5,9 +5,10 @@
         isComputer = false;
     }
 
-    Player::Player(char token, bool isComputer) {
+    Player::Player(char token, bool isComputer, Board *board) {
         this->token = token;
         this->isComputer = isComputer;
+        this->board = board;
     }
 
     void Player::manuallyPlace(int token) {
@@ -16,11 +17,11 @@
         bool placed = false;
         
         while (!placed) {
-            get();
-            placed = board.placeToken(coordinate, token);
-            cout << "PLACED = " << placed << endl;
+            coordinate = get();
+            placed = board->placeToken(coordinate, token);
+            // here
         }
-        board.display();
+        board->display();
     }
 
     void Player::randomlyPlace(int token) {
@@ -29,62 +30,42 @@
         bool placed = false;
 
         while (!placed) {
-            board.randomizeCoordinate();
-            placed = board.placeToken(coordinate, token);
+            coordinate = board->randomizeCoordinate();
+            placed = board->placeToken(coordinate, token);
         }
-        board.display();
+        board->display();
     }
 
     // bool Player::isAutomatic()
     //int Player::getPlacement(int col)
 
-    void Player::placeToken() {
+    void Player::move() {
         cout << "Placing Player Token" << endl;
         isComputer ? randomlyPlace(token) : manuallyPlace(token);
     }
      
     void Player::outputBoard() {
-        board.display();
+        board->display();
     }
 
     Coordinate Player::get() {
         Coordinate coordinate;
-        int row, col = -1;
         bool set = false;
-
         if (isComputer) {
-            board.randomizeCoordinate();
+            board->randomizeCoordinate();
         } else {
             while (!set) {
                 cout << "Enter valid column: ";
-                cin >> col;
-                row = board.findAvailableRow(col);
-                set = board.setCoordinate(row, col);
-                cout << "set = " << set << endl;
+                cin >> coordinate.col;
+                coordinate.col = coordinate.col - 1;
+                coordinate.row = board->findAvailableRow(coordinate.col);
+                cout << "ROW: " << coordinate.row << endl;
+                set = board->setCoordinate(coordinate.row, coordinate.col);
             }
         }
         return coordinate;
     }
 
-    void Player::move(Player *opponent) {
-        bool registered = false;
-        Coordinate choice;
-
-        while (!registered) {
-            choice = get();
-            registered = opponent->registerMove(choice);
-            // Print Error Here
-        }
-    }
-
     bool Player::hasWon() {
-        return board.isConnected();
-    }
-
-    //bool Player::registerMove()
-
-    bool Player::registerMove(Coordinate coordinate) {
-        bool check;
-        board.placeToken(coordinate, token) ? check = true : check = false;
-        return check;
+        return board->isConnected();
     }

@@ -19,10 +19,10 @@
         cout << endl;
     }
 
-    // INFINITE LOOP HERE?
     bool Board::placeToken(Coordinate coordinate, char token) {
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
+        int row = coordinate.row;
+        int col = coordinate.col;
+        cout << "PT ROW: " << row << "  COL: " << col << endl;
 
         if (!inBounds(coordinate) || !isClear(coordinate)) {
             return false;
@@ -32,26 +32,24 @@
     }
 
     bool Board::isClear(Coordinate coordinate) {
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
-
-        if (board[row][col] != 'O') {
-            return false;
-        }
-        return true;
+        int row = coordinate.row;
+        int col = coordinate.col;
+        bool check;
+        (board[row][col] != 'O') ? check = false : check = true;
+        return check;
     }
 
     bool Board::inBounds(Coordinate coordinate) {
-        if (coordinate.getCol() > COLSIZE || coordinate.getRow() > ROWSIZE) {
-            // check for less than 1
-            return false;
-        }
-        return true;
+        int row = coordinate.row;
+        int col = coordinate.col;
+        bool check;
+        ((col > COLSIZE - 1 || col < 0) || (row > ROWSIZE - 1 || row < 0)) ? check = false : check = true;
+        return check;
     }
 
     void Board::updateBoard(Coordinate coordinate, char token) {
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
+        int row = coordinate.row;
+        int col = coordinate.col;
         board[row][col] = token;
     }
 
@@ -59,16 +57,16 @@
 
     // }
 
-    void Board::randomizeCoordinate() {
+    Coordinate Board::randomizeCoordinate() {
         Coordinate coordinate;
         int col = 1 + rand() % 10;
         coordinate.set(col, findAvailableRow(col));
+        return coordinate;
     }
 
     bool Board::setCoordinate(int row, int col) {
         Coordinate coordinate;
         if ((col > COLSIZE || col < 1) || row == -1) {
-            cout << "IM FALSE BITCH" << endl;
             return false;
         }
         coordinate.set(row,col);
@@ -76,9 +74,15 @@
     }
 
     int Board::findAvailableRow(int col) {
-        for (int i = 0; i < COLSIZE; ++i) {
+        for (int i = 0; i < ROWSIZE; ++i) {
             char symbol = board[i][col];
-            if (symbol != 'O') { return i - 1; }
+            cout << "Row = " << i << "  Col = " << col << "  Sym = " << symbol << endl;
+            if (i == ROWSIZE - 1 && symbol == 'O') {
+                return i;
+            } else if (symbol != 'O') { 
+                return i - 1; 
+            } 
+            
         }
         return -1; // No row available in column
     }
