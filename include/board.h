@@ -3,6 +3,8 @@
 
 #include "coordinate.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <cmath>
 using std::cout;
 using std::endl;
 using std::cin;
@@ -13,6 +15,7 @@ const int COLSIZE = 7;
 class Board {
 public:
     Board();
+    sf::RenderWindow* getWindow();
     void intitalize();
     void render();
     void display();
@@ -27,6 +30,7 @@ public:
     bool isConnected(char token);
 private:
     char board[ROWSIZE][COLSIZE];
+    sf::RenderWindow window;
 };
 
 #endif
