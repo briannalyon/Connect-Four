@@ -7,8 +7,9 @@
      * @param isComputer determines if AI is needed
      * @param board Game board
      */
-    Player::Player(char token, bool isComputer, Board *board) {
+    Player::Player(char token, sf::Color color, bool isComputer, Board *board) {
         this->token = token;
+        this->color = color;
         this->isComputer = isComputer;
         this->board = board;
     }
@@ -28,7 +29,7 @@
      * 
      * @param token Player's token
      */
-    void Player::manuallyPlace(int token) {
+    void Player::manuallyPlace(char token) {
         Coordinate coordinate;
         this->token = token;
         bool placed = false;
@@ -37,7 +38,7 @@
             coordinate = get();
             placed = board->placeToken(coordinate, token);
         }
-        board->windowPlace(coordinate);
+        board->addToken(coordinate, color);
         board->display();
     }
 
@@ -46,7 +47,7 @@
      *        and redisplay's the board to terminal
      * @param token Player's token
      */
-    void Player::randomlyPlace(int token) {
+    void Player::randomlyPlace(char token) {
         Coordinate coordinate;
         this->token = token;
         bool placed = false;
@@ -55,7 +56,7 @@
             coordinate = board->randomizeCoordinate();
             placed = board->placeToken(coordinate, token);
         }
-        board->windowPlace(coordinate);
+        board->addToken(coordinate, color);
         board->display();
     }
 
