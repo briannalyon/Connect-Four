@@ -29,7 +29,7 @@ public:
     sf::RenderWindow* getWindow();
     void intitalize();
     void render();
-    Coordinate addToken(Coordinate coordinate, sf::Color& color);
+    void addToken(Coordinate coordinate, sf::Color& color);
     void handleInput();
     bool isDone() const;
 private:

@@ -39,7 +39,6 @@
             placed = board->placeToken(coordinate, token);
         }
         board->addToken(coordinate, color);
-        board->display();
     }
 
     /**
@@ -57,7 +56,6 @@
             placed = board->placeToken(coordinate, token);
         }
         board->addToken(coordinate, color);
-        board->display();
     }
 
     /**
@@ -76,7 +74,6 @@
                 cin >> coordinate.col;
                 coordinate.col = coordinate.col - 1;
                 coordinate.row = board->findAvailableRow(coordinate.col);
-                cout << "ROW: " << coordinate.row << endl;
                 set = board->setCoordinate(coordinate.row, coordinate.col);
             }
         }

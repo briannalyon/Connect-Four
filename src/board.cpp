@@ -130,7 +130,6 @@ bool Board::setCoordinate(int row, int col) {
 int Board::findAvailableRow(int col) {
     for (int i = 0; i < ROWSIZE; ++i) {
         char symbol = board[i][col];
-        cout << "Row = " << i << "  Col = " << col << "  Sym = " << symbol << endl;
         if (i == ROWSIZE - 1 && symbol == 'O') {
             return i;
         } else if (symbol != 'O') { 
@@ -212,15 +211,15 @@ void Board::render() {
 
     window.clear(blue);
     window.draw(rectangle);
-    for (int i = 0; i < ROWSIZE; ++i) {
-        for (int j = 0; j < COLSIZE; ++j) {
-            token.setPosition(j * distance + offset + 30, i * height + 130); //odd rows
+    for (int row = 0; row < ROWSIZE; ++row) {
+        for (int col = 0; col < COLSIZE; ++col) {
+            token.setPosition(col * distance + offset + 30, row * height + 130); //odd rows
             window.draw(token);
         }
     }
 }
 
-Coordinate Board::addToken(Coordinate coordinate, sf::Color& color) {
+void Board::addToken(Coordinate coordinate, sf::Color& color) {
     const int distance = 150; 
     const float offset = distance / 20.f; 
     const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
@@ -231,12 +230,15 @@ Coordinate Board::addToken(Coordinate coordinate, sf::Color& color) {
     tokenBackground.setFillColor(background);
     token.setFillColor(color);
 
-    for (int i = 0; i <= coordinate.row; ++i) {
-        if (i > 0) {
-            tokenBackground.setPosition(coordinate.col * distance + offset + 45, i - 1 * height + 130);
+    for (int row = 0; row <= coordinate.row; ++row) {
+        if (row > 0) {
+            cout << "here" << endl;
+            tokenBackground.setPosition(coordinate.col * distance + offset + 45, row - 1 * height + 130);
+            //render();
             window.draw(tokenBackground);
         }
-        token.setPosition(coordinate.col * distance + offset + 45, i * height + 130); //odd rows
+        token.setPosition(coordinate.col * distance + offset + 45, row * height + 130); //odd rows
+        //render();
         window.draw(token);
     }
 }
