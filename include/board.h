@@ -28,9 +28,14 @@ public:
     bool setCoordinate(int row, int col);
     int findAvailableRow(int col);
     bool isConnected(char token);
+    void windowPlace(Coordinate coordinate);
+    //Coordinate addPiece(int col, const sf::Color& color);
+     void Board::handleInput();
+     bool Board::isDone() const;
 private:
     char board[ROWSIZE][COLSIZE];
     sf::RenderWindow window;
+    bool done;
 };
 
 #endif
