@@ -1,5 +1,9 @@
     #include "board.h"
 
+    /**
+     * @brief Construct a new Board:: Board object
+     * 
+     */
     Board::Board() {
         for (int row = 0; row < ROWSIZE; ++row) {
             for (int col = 0; col < COLSIZE; ++col) {
@@ -10,8 +14,12 @@
         render();
     }
 
-    // Call board render instead of display for SFML
+    /**
+     * @brief Display's the board to terminal
+     * 
+     */
     void Board::display() {
+        // Call board render instead of display for SFML
         cout << "1 2 3 4 5 6 7" << endl;
         for (int row = 0; row < ROWSIZE; ++row) {
             for (int col = 0; col < COLSIZE; ++col) {
@@ -22,11 +30,17 @@
         cout << endl;
     }
 
+    /**
+     * @brief Places the player token in given coordinate
+     * 
+     * @param coordinate 
+     * @param token 
+     * @return true 
+     * @return false 
+     */
     bool Board::placeToken(Coordinate coordinate, char token) {
         int row = coordinate.row;
         int col = coordinate.col;
-        cout << "PT ROW: " << row << "  COL: " << col << endl;
-
         if (!inBounds(coordinate) || !isClear(coordinate)) {
             return false;
         }
@@ -34,6 +48,13 @@
         return true;
     }
 
+    /**
+     * @brief 
+     * 
+     * @param coordinate 
+     * @return true 
+     * @return false 
+     */
     bool Board::isClear(Coordinate coordinate) {
         int row = coordinate.row;
         int col = coordinate.col;
@@ -42,6 +63,13 @@
         return check;
     }
 
+    /**
+     * @brief Checks to see if coordinate is on the board
+     * 
+     * @param coordinate 
+     * @return true 
+     * @return false 
+     */
     bool Board::inBounds(Coordinate coordinate) {
         int row = coordinate.row;
         int col = coordinate.col;
@@ -50,16 +78,24 @@
         return check;
     }
 
+    /**
+     * @brief Updates the board with player's token
+     * 
+     * @param coordinate Coordinate to be updated
+     * @param token Player's Token
+     */
     void Board::updateBoard(Coordinate coordinate, char token) {
         int row = coordinate.row;
         int col = coordinate.col;
         board[row][col] = token;
     }
 
-    // char Board::getTokenColor(Coordinate coordinate) {
-
-    // }
-
+    /**
+     * @brief Randomizes a column from 1 - 7 and retrieves the next 
+     *        available row
+     * 
+     * @return Coordinate Returns the randomized coordinate
+     */
     Coordinate Board::randomizeCoordinate() {
         Coordinate coordinate;
         int col = 1 + rand() % 10;
@@ -67,6 +103,15 @@
         return coordinate;
     }
 
+    /**
+     * @brief Calls member function in class Coordinate to set member
+     *        variables row and col
+     * 
+     * @param row 
+     * @param col 
+     * @return true 
+     * @return false 
+     */
     bool Board::setCoordinate(int row, int col) {
         Coordinate coordinate;
         if ((col > COLSIZE || col < 0) || row == -1) {
@@ -76,6 +121,12 @@
         return true;
     }
 
+    /**
+     * @brief Takes the column and finds the next empty row
+     * 
+     * @param col Column selected by player
+     * @return int Returns available row or -1 if no row is available
+     */
     int Board::findAvailableRow(int col) {
         for (int i = 0; i < ROWSIZE; ++i) {
             char symbol = board[i][col];
@@ -85,11 +136,17 @@
             } else if (symbol != 'O') { 
                 return i - 1; 
             } 
-            
         }
-        return -1; // No row available in column
+        return -1;
     }
 
+    /**
+     * @brief Determines if there are 4 tokens in a row
+     * 
+     * @param token Player's token
+     * @return true Tokens are connected
+     * @return false Tokens are not connected
+     */
     bool Board::isConnected(char token) {
         for (int col = 0; col <= 6; ++col) {
             for (int row = 0; row <= 2; ++row) {
@@ -124,13 +181,15 @@
         }
         return false;
     }     
+    
+    //------ SFML FUNCTIONS ------//
 
     sf::RenderWindow* Board::getWindow() {
         return &window;
     }
-//910
+
     void Board::intitalize() {
-        window.create(sf::VideoMode(1080, 1010), "Connect Four");
+        window.create(sf::VideoMode(1080, 1010), "Connect Four"); //910
     }
 
     void Board::render() {
