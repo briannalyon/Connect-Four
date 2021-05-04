@@ -15,30 +15,25 @@ int main() {
     bool won = false;
     cout << "Welcome to Connect Four!" << endl;
     sf::RenderWindow* window = board.getWindow();
-
-    while (1) {
-
+    window->display();
         while (window->isOpen()) {	// should this be the game loop
             sf::Event event;
             while (window->pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     window->close();
             }
-            board.render();
-            window->display();
-        }
 
-            Player playerOne('X', false, &board); // X stands for a color
+            Player playerOne('Y', false, &board); // X stands for a color
             playerOne.outputBoard();
             playerOne.move();
-            won = playerOne.hasWon('X');
-            if(won) {break;}
+            won = playerOne.hasWon('Y');
+            if(won) break;
 
-            Player playerTwo('B', false, &board); // X stands for a color
+            Player playerTwo('R', false, &board); // X stands for a color
             playerTwo.outputBoard();
             playerTwo.move();
-            won = playerTwo.hasWon('B');
-            if(won) {break;}
-    }
+            won = playerTwo.hasWon('R');
+            if(won) break;
+        }
     return 0;
 }

@@ -16,6 +16,7 @@
             placed = board->placeToken(coordinate, token);
             // here
         }
+        board->windowPlace(coordinate);
         board->display();
     }
 
@@ -28,6 +29,7 @@
             coordinate = board->randomizeCoordinate();
             placed = board->placeToken(coordinate, token);
         }
+        board->windowPlace(coordinate);
         board->display();
     }
 

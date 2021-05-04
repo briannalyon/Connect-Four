@@ -10,35 +10,6 @@
         render();
     }
 
-    sf::RenderWindow* Board::getWindow() {
-        return &window;
-    }
-
-    void Board::intitalize() {
-        window.create(sf::VideoMode(1080, 910), "Connect Four");
-    }
-
-    void Board::render() {
-        const int nofRows = 6; //number of rows
-        const int nofCols = 7; //number of columns
-        const int distance = 150; //distance between tokens
-        const float offset = distance / 20.f; 
-        const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
-        const sf::Color blue = sf::Color(0, 76, 153, 255);
-        const sf::Color grey = sf::Color(200, 200, 200, 255);
-
-        sf::CircleShape token(50.f);
-        token.setFillColor(grey);
-
-        window.clear(blue);
-		for (int i = 0; i < nofRows; ++i) {
-			for (int j = 0; j < nofCols; ++j) {
-			    token.setPosition(j * distance + offset + 30, i * height + 30); //odd rows
-				window.draw(token);
-			}
-        }
-    }
-
     // Call board render instead of display for SFML
     void Board::display() {
         cout << "1 2 3 4 5 6 7" << endl;
@@ -153,3 +124,82 @@
         }
         return false;
     }     
+
+    sf::RenderWindow* Board::getWindow() {
+        return &window;
+    }
+//910
+    void Board::intitalize() {
+        window.create(sf::VideoMode(1080, 1010), "Connect Four");
+    }
+
+    void Board::render() {
+        const int nofRows = 6; //number of rowssf::CircleShape
+        const int nofCols = 7; //number of columns
+        const int distance = 150; //distance between tokens
+        const float offset = distance / 20.f; 
+        const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
+        const sf::Color blue = sf::Color(0, 76, 153, 255);
+        const sf::Color grey = sf::Color(160, 160, 160, 255);
+
+        // sf::RectangleShape rectangle(sf::Vector2f(1080.f, 50.f));
+        // rectangle.setFillColor(grey);
+        // rectangle.setPosition(320,240);
+        // rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
+        // window.draw(rectangle);
+
+        sf::CircleShape token(50.f);
+        token.setFillColor(grey);
+        token.setOutlineThickness(5);
+        token.setOutlineColor(sf::Color(0, 51, 102, 255));
+
+        window.clear(blue);
+		for (int i = 0; i < nofRows; ++i) {
+			for (int j = 0; j < nofCols; ++j) {
+			    token.setPosition(j * distance + offset + 30, i * height + 130); //odd rows
+				window.draw(token);
+			}
+        }
+    }
+
+    // Coordinate Board::addPiece(int col, const sf::Color& color) {
+        
+    // }
+
+    void Board::windowPlace(Coordinate coordinate) { // zero based
+        const int distance = 150; //distance between tokens
+        const float offset = distance / 20.f; 
+        const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
+        const sf::Color grey = sf::Color(160, 160, 160, 255);
+        const sf::Color yellow = sf::Color(255, 255, 102, 255);
+
+        sf::CircleShape tokenGrey(50.f);
+        sf::CircleShape tokenYellow(50.f);
+        tokenGrey.setFillColor(grey);
+        tokenYellow.setFillColor(yellow);
+
+        for (int i = 0; i <= coordinate.row; ++i) {
+                if (i > 0) {
+                    tokenGrey.setPosition(coordinate.col * distance + offset + 45, i - 1 * height + 30);
+                    window.draw(tokenGrey);
+                }
+			    tokenYellow.setPosition(coordinate.col * distance + offset + 45, i * height + 30); //odd rows
+				window.draw(tokenYellow);
+        }
+    }
+
+    void Board::handleInput() {
+    sf::Event event;
+    while(window.pollEvent(event))
+    {
+        if(event.type == sf::Event::Closed)
+        {
+            // Close window button clicked.
+            window.close();
+        }
+    }
+}
+
+bool Board::isDone() const {
+    return (window.isOpen() || done);
+}
