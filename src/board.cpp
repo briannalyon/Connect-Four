@@ -22,11 +22,12 @@
     bool Board::placeToken(Coordinate coordinate, char token) {
         int row = coordinate.row;
         int col = coordinate.col;
+        cout << "PT ROW: " << row << "  COL: " << col << endl;
 
         if (!inBounds(coordinate) || !isClear(coordinate)) {
             return false;
         }
-        board[row][col - 1] = token;
+        board[row][col] = token;
         return true;
     }
 
@@ -42,7 +43,7 @@
         int row = coordinate.row;
         int col = coordinate.col;
         bool check;
-        ((col > COLSIZE || col < 1) || (row > ROWSIZE || row < 1)) ? check = false : check = true;
+        ((col > COLSIZE - 1 || col < 0) || (row > ROWSIZE - 1 || row < 0)) ? check = false : check = true;
         return check;
     }
 
@@ -73,9 +74,15 @@
     }
 
     int Board::findAvailableRow(int col) {
-        for (int i = 0; i < COLSIZE; ++i) {
+        for (int i = 0; i < ROWSIZE; ++i) {
             char symbol = board[i][col];
-            if (symbol != 'O') { return i - 1; }
+            cout << "Row = " << i << "  Col = " << col << "  Sym = " << symbol << endl;
+            if (i == ROWSIZE - 1 && symbol == 'O') {
+                return i;
+            } else if (symbol != 'O') { 
+                return i - 1; 
+            } 
+            
         }
         return -1; // No row available in column
     }
