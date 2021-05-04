@@ -98,7 +98,7 @@
      */
     Coordinate Board::randomizeCoordinate() {
         Coordinate coordinate;
-        int col = 1 + rand() % 10;
+        int col = 1 + rand() % COLSIZE;
         coordinate.set(col, findAvailableRow(col));
         return coordinate;
     }
@@ -193,54 +193,49 @@
     }
 
     void Board::render() {
-        const int nofRows = 6; //number of rowssf::CircleShape
-        const int nofCols = 7; //number of columns
         const int distance = 150; //distance between tokens
         const float offset = distance / 20.f; 
         const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
         const sf::Color blue = sf::Color(0, 76, 153, 255);
-        const sf::Color grey = sf::Color(160, 160, 160, 255);
+        const sf::Color background = sf::Color(160, 160, 160, 255);
 
-        // sf::RectangleShape rectangle(sf::Vector2f(1080.f, 50.f));
-        // rectangle.setFillColor(grey);
-        // rectangle.setPosition(320,240);
-        // rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
-        // window.draw(rectangle);
+        sf::RectangleShape rectangle(sf::Vector2f(2400.f, 200.f));
+        rectangle.setFillColor(background);
+        rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
+        rectangle.setOutlineThickness(5);
+        rectangle.setOutlineColor(sf::Color(0, 51, 102, 255));
 
         sf::CircleShape token(50.f);
-        token.setFillColor(grey);
+        token.setFillColor(background);
         token.setOutlineThickness(5);
         token.setOutlineColor(sf::Color(0, 51, 102, 255));
 
         window.clear(blue);
-		for (int i = 0; i < nofRows; ++i) {
-			for (int j = 0; j < nofCols; ++j) {
+        window.draw(rectangle);
+		for (int i = 0; i < ROWSIZE; ++i) {
+			for (int j = 0; j < COLSIZE; ++j) {
 			    token.setPosition(j * distance + offset + 30, i * height + 130); //odd rows
 				window.draw(token);
 			}
         }
     }
 
-    // Coordinate Board::addPiece(int col, const sf::Color& color) {
-        
-    // }
-
-    void Board::windowPlace(Coordinate coordinate) { // zero based
-        const int distance = 150; //distance between tokens
+    Coordinate Board::addToken(Coordinate coordinate, const sf::Color& color) {
+        const int distance = 150; 
         const float offset = distance / 20.f; 
         const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
-        const sf::Color grey = sf::Color(160, 160, 160, 255);
+        const sf::Color background = sf::Color(160, 160, 160, 255);
         const sf::Color yellow = sf::Color(255, 255, 102, 255);
 
-        sf::CircleShape tokenGrey(50.f);
+        sf::CircleShape tokenbackground(50.f);
         sf::CircleShape tokenYellow(50.f);
-        tokenGrey.setFillColor(grey);
+        tokenbackground.setFillColor(background);
         tokenYellow.setFillColor(yellow);
 
         for (int i = 0; i <= coordinate.row; ++i) {
                 if (i > 0) {
-                    tokenGrey.setPosition(coordinate.col * distance + offset + 45, i - 1 * height + 30);
-                    window.draw(tokenGrey);
+                    tokenbackground.setPosition(coordinate.col * distance + offset + 45, i - 1 * height + 30);
+                    window.draw(tokenbackground);
                 }
 			    tokenYellow.setPosition(coordinate.col * distance + offset + 45, i * height + 30); //odd rows
 				window.draw(tokenYellow);
