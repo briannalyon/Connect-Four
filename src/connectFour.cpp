@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <SFML/Graphics.hpp>
-#include <Keyboard.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <cmath>
 #include "player.h"
 #include "board.h"
@@ -28,18 +28,20 @@ int main() {
         while (window->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window->close();
-        }
 
-        while(window.keyBoardEvent(event))// NEEDS TO BE IN EVENT WHILE LOOP TO REGISTER KEY PRESSES/MOUSE CLICKS
-        {
-            
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) col = 1;
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) col = 2;
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) col = 3;
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) col = 4;
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) col = 5;
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) col = 6;
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) col = 7;
+            //if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Num1) {
+                col = 1;
+                cout << "here" << endl;
+            }
+            // else if (event.key.code == sf::Keyboard::Num2) col = 2;
+            // else if (event.key.code == sf::Keyboard::Num3) col = 3;
+            // else if (event.key.code == sf::Keyboard::Num4) col = 4;
+            // else if (event.key.code == sf::Keyboard::Num5) col = 5;
+            // else if (event.key.code == sf::Keyboard::Num6) col = 6;
+            // else if (event.key.code == sf::Keyboard::Num7) col = 7;
+            //}
+
                 
             if (player == 1) {
                 playerOne.outputBoard();
