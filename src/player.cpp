@@ -37,7 +37,6 @@
             coordinate = get(col);
             placed = board->placeToken(coordinate, token);
         }
-        //board->addToken(coordinate, color);
     }
 
 
@@ -55,7 +54,6 @@
             coordinate = board->randomizeCoordinate();
             placed = board->placeToken(coordinate, token);
         }
-        //board->addToken(coordinate, color);
     }
 
     /**
@@ -70,7 +68,7 @@
             board->randomizeCoordinate();
         } else {
             while (!set) {
-                // cout << "Enter valid column: ";
+                //cout << "Enter valid column: ";
                 // cin >> coordinate.col;
                 coordinate.col = col - 1;
                 coordinate.row = board->findAvailableRow(coordinate.col);
@@ -98,13 +96,3 @@
     bool Player::hasWon(char token) {
         return board->isConnected(token);
     }
-
-    // /**
-    //  * @brief Set the Col object
-    //  * 
-    //  * @param col keypressed by user
-    //  */
-    // void Player::setCol(int col)
-    // {
-    //     this->col = col;
-    // }

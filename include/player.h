@@ -18,11 +18,9 @@ public:
     void setCol(int col);
 private:
     char token;
-    // int col;
     sf::Color color;
     bool isComputer;
     Board *board;
-    
 };
 
 #endif

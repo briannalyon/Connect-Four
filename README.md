@@ -5,3 +5,13 @@ Connect Four is a two-player connection board game, in which the players choose 
 1. Players must alternate turns and only one disc can be dropped in each turn.
 2. On your turn, select any of the seven columns that you would like to drop your colored disc in.
 3. The game ends when there is a 4-in-a-row or a stalemate.  
+
+## Authors and Acknowledgment
+### Brianna Lyon
+Short description here
+
+### Josie Wicklund
+Short description here
+
+## Project Status
+Describe where the project left off/intentions for the future

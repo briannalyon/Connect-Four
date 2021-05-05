@@ -1,5 +1,4 @@
 #include "board.h"
-
 /**
  * @brief Construct a new Board:: Board object
  * 
@@ -115,9 +114,11 @@ Coordinate Board::randomizeCoordinate() {
 bool Board::setCoordinate(int row, int col) {
     Coordinate coordinate;
     if ((col > COLSIZE || col < 0) || row == -1) {
+        //cout << "Here false" << endl;
         return false;
     }
     coordinate.set(row,col);
+    //cout << "Here true" << endl;
     return true;
 }
 
@@ -181,6 +182,14 @@ bool Board::isConnected(char token) {
     return false;
 }     
 
+void Board::setPlayer(char token) {
+    currPlayer = token;
+}
+
+
+
+
+
 //------ SFML FUNCTIONS ------//
 
 sf::RenderWindow* Board::getWindow() {
@@ -188,13 +197,53 @@ sf::RenderWindow* Board::getWindow() {
 }
 
 void Board::intitalize() {
-    window.create(sf::VideoMode(1080, 1010), "Connect Four"); //910
+    window.create(sf::VideoMode(1080, 1010), "Connect Four");
 }
 
 void Board::render() {
     const int distance = 150; 
     const float offset = distance / 20.f; 
     const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
+
+    // MOVE ALL VARIABLES TO A MEMBER VARIABLE IN CLASS INIZIALIZE IN CONSTRUCTOR
+    // FIGURE OUT WHY THE FUCK ITS NOT SHOWING FOUR TOKENS
+
+    sf::Font font;
+    if (!font.loadFromFile("assets/OpenSans-Bold.ttf")) {
+        cout << "File cannot load" << '\n';
+    }
+
+    sf::Text num;
+    num.setFont(font);
+    num.setString("         1               2              3               4              5               6               7 ");
+    num.setCharacterSize(30);
+    num.setStyle(sf::Text::Bold);
+    num.setFillColor(sf::Color(0, 76, 153, 255));
+    num.setPosition(0, 50);
+
+    sf::Text playerOne;
+    playerOne.setFont(font);
+    playerOne.setString("Player 1");
+    playerOne.setCharacterSize(30);
+    playerOne.setStyle(sf::Text::Bold);
+    playerOne.setFillColor(sf::Color(247, 207, 74, 255));
+    playerOne.setPosition(0, 0);
+
+    sf::Text playerTwo;
+    playerTwo.setFont(font);
+    playerTwo.setString("Player 2");
+    playerTwo.setCharacterSize(30);
+    playerTwo.setStyle(sf::Text::Bold);
+    playerTwo.setFillColor(sf::Color(216, 28, 28, 255));
+    playerTwo.setPosition(0, 0);
+
+    sf::Text winner;
+    winner.setFont(font);
+    winner.setString("Winner!!!");
+    winner.setCharacterSize(30);
+    winner.setStyle(sf::Text::Bold);
+    winner.setFillColor(sf::Color(216, 28, 28, 255));
+    winner.setPosition(0, 0);
 
     sf::RectangleShape rectangle(sf::Vector2f(2400.f, 200.f));
     rectangle.setFillColor(background);
@@ -217,8 +266,17 @@ void Board::render() {
     yellowToken.setOutlineThickness(5);
     yellowToken.setOutlineColor(tokenOutline);
 
-    window.clear(sf::Color(0, 76, 153, 255));
+    window.clear(sf::Color(0, 76, 153, 255)); 
     window.draw(rectangle);
+    window.draw(num);
+
+    if (currPlayer == 'R') {
+        window.draw(playerTwo);
+    } else if (currPlayer == 'Y') {
+        window.draw(playerOne);
+    }
+     
+
     for (int row = 0; row < ROWSIZE; ++row) {
         for (int col = 0; col < COLSIZE; ++col) {
             if (board[row][col] == 'Y') {
@@ -233,44 +291,13 @@ void Board::render() {
             }
         }
     }
-    window.display();
-}
 
-// void Board::addToken(Coordinate coordinate, sf::Color& color) {
-//     const int distance = 150; 
-//     const float offset = distance / 20.f; 
-//     const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
-    
-
-//     sf::CircleShape tokenBackground(50.f);
-//     sf::CircleShape token(50.f);
-//     tokenBackground.setFillColor(background);
-//     token.setFillColor(color);
-
-//     window.draw(token);
-    // for (int row = 0; row <= coordinate.row; ++row) {
-    //     if (row > 0) {
-    //         cout << "here" << endl;
-    //         tokenBackground.setPosition(coordinate.col * distance + offset + 45, row - 1 * height + 130);
-    //         //render();
-    //         window.draw(tokenBackground);
-    //     }
-    //     token.setPosition(coordinate.col * distance + offset + 45, row * height + 130); //odd rows
-    //     //render();
-    //     window.draw(token);
-    // }
-// }
-
-void Board::handleInput() {
-    sf::Event event;
-    while(window.pollEvent(event)) {
-        if(event.type == sf::Event::Closed) {
-            // Close window button clicked.
-            window.close();
-        }
+    if (isConnected(currPlayer)) {
+        window.draw(winner);
+        window.display();
+        sleep(10);
+        return;
     }
-}
 
-bool Board::isDone() const {
-    return (window.isOpen() || done);
+    window.display();
 }
