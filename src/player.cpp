@@ -7,9 +7,8 @@
      * @param isComputer determines if AI is needed
      * @param board Game board
      */
-    Player::Player(char token, sf::Color color, bool isComputer, Board *board) {
+    Player::Player(char token, bool isComputer, Board *board) {
         this->token = token;
-        this->color = color;
         this->isComputer = isComputer;
         this->board = board;
     }
