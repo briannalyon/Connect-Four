@@ -14,10 +14,8 @@ int main() {
     Board board;
     bool won = false;
     int player = 1;
-    const sf::Color Red = sf::Color(Red);
-    const sf::Color Yellow = sf::Color(Yellow);
-    Player playerOne('Y', Yellow, false, &board); 
-    Player playerTwo('R', Red, false, &board); 
+    Player playerOne('Y', false, &board); 
+    Player playerTwo('R', false, &board); 
 
     cout << "Welcome to Connect Four!" << endl;
     sf::RenderWindow* window = board.getWindow();
@@ -30,6 +28,7 @@ int main() {
                 window->close();
         }
 
+        // NEEDS TO BE IN EVENT WHILE LOOP TO REGISTER KEY PRESSES/MOUSE CLICKS
         if (player == 1) {
             playerOne.outputBoard();
             playerOne.move();
@@ -43,7 +42,6 @@ int main() {
             if(won) break;
             player = 1;
         }
-
         board.render();
     }
     return 0;
