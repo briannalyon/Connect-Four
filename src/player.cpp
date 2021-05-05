@@ -17,9 +17,9 @@
      * @brief Determines if current player is a human or computer
      * 
      */
-    void Player::move() {
+    void Player::move(int col) {
         cout << "Placing Player Token" << endl;
-        isComputer ? randomlyPlace(token) : manuallyPlace(token);
+        isComputer ? randomlyPlace(token) : manuallyPlace(token, col);
     }
 
     /**
@@ -28,17 +28,18 @@
      * 
      * @param token Player's token
      */
-    void Player::manuallyPlace(char token) {
+    void Player::manuallyPlace(char token, int col) {
         Coordinate coordinate;
         this->token = token;
         bool placed = false;
         
         while (!placed) {
-            coordinate = get();
+            coordinate = get(col);
             placed = board->placeToken(coordinate, token);
         }
         //board->addToken(coordinate, color);
     }
+
 
     /**
      * @brief Calls functions to place token until successful
@@ -62,16 +63,16 @@
      * 
      * @return Coordinate Column of choice and next avaiable row
      */
-    Coordinate Player::get() {
+    Coordinate Player::get(int col) {
         Coordinate coordinate;
         bool set = false;
         if (isComputer) {
             board->randomizeCoordinate();
         } else {
             while (!set) {
-                cout << "Enter valid column: ";
-                cin >> coordinate.col;
-                coordinate.col = coordinate.col - 1;
+                // cout << "Enter valid column: ";
+                // cin >> coordinate.col;
+                coordinate.col = col - 1;
                 coordinate.row = board->findAvailableRow(coordinate.col);
                 set = board->setCoordinate(coordinate.row, coordinate.col);
             }
@@ -97,3 +98,13 @@
     bool Player::hasWon(char token) {
         return board->isConnected(token);
     }
+
+    // /**
+    //  * @brief Set the Col object
+    //  * 
+    //  * @param col keypressed by user
+    //  */
+    // void Player::setCol(int col)
+    // {
+    //     this->col = col;
+    // }
