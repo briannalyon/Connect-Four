@@ -192,56 +192,74 @@ void Board::intitalize() {
 }
 
 void Board::render() {
-    const int distance = 150; //distance between tokens
+    const int distance = 150; 
     const float offset = distance / 20.f; 
     const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
-    const sf::Color blue = sf::Color(0, 76, 153, 255);
-    const sf::Color background = sf::Color(160, 160, 160, 255);
 
     sf::RectangleShape rectangle(sf::Vector2f(2400.f, 200.f));
     rectangle.setFillColor(background);
     rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
     rectangle.setOutlineThickness(5);
-    rectangle.setOutlineColor(sf::Color(0, 51, 102, 255));
+    rectangle.setOutlineColor(tokenOutline);
 
-    sf::CircleShape token(50.f);
-    token.setFillColor(background);
-    token.setOutlineThickness(5);
-    token.setOutlineColor(sf::Color(0, 51, 102, 255));
+    sf::CircleShape emptyToken(50.f);
+    emptyToken.setFillColor(background);
+    emptyToken.setOutlineThickness(5);
+    emptyToken.setOutlineColor(tokenOutline);
 
-    window.clear(blue);
+    sf::CircleShape redToken(50.f);
+    redToken.setFillColor(sf::Color(216, 28, 28, 255));
+    redToken.setOutlineThickness(5);
+    redToken.setOutlineColor(tokenOutline);
+
+    sf::CircleShape yellowToken(50.f);
+    yellowToken.setFillColor(sf::Color(247, 207, 74, 255));
+    yellowToken.setOutlineThickness(5);
+    yellowToken.setOutlineColor(tokenOutline);
+
+    window.clear(sf::Color(0, 76, 153, 255));
     window.draw(rectangle);
     for (int row = 0; row < ROWSIZE; ++row) {
         for (int col = 0; col < COLSIZE; ++col) {
-            token.setPosition(col * distance + offset + 30, row * height + 130); //odd rows
-            window.draw(token);
+            if (board[row][col] == 'Y') {
+                yellowToken.setPosition(col * distance + offset + 30, row * height + 130);
+                window.draw(yellowToken);
+            } else if (board[row][col] == 'R') {
+                redToken.setPosition(col * distance + offset + 30, row * height + 130);
+                window.draw(redToken);
+            } else {
+                emptyToken.setPosition(col * distance + offset + 30, row * height + 130);
+                window.draw(emptyToken);
+            }
         }
     }
+    window.display();
 }
 
-void Board::addToken(Coordinate coordinate, sf::Color& color) {
-    const int distance = 150; 
-    const float offset = distance / 20.f; 
-    const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
-    const sf::Color background = sf::Color(160, 160, 160, 255);
+// void Board::addToken(Coordinate coordinate, sf::Color& color) {
+//     const int distance = 150; 
+//     const float offset = distance / 20.f; 
+//     const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
+    
 
-    sf::CircleShape tokenBackground(50.f);
-    sf::CircleShape token(50.f);
-    tokenBackground.setFillColor(background);
-    token.setFillColor(color);
+//     sf::CircleShape tokenBackground(50.f);
+//     sf::CircleShape token(50.f);
+//     tokenBackground.setFillColor(background);
+//     token.setFillColor(color);
 
-    for (int row = 0; row <= coordinate.row; ++row) {
-        if (row > 0) {
-            cout << "here" << endl;
-            tokenBackground.setPosition(coordinate.col * distance + offset + 45, row - 1 * height + 130);
-            //render();
-            window.draw(tokenBackground);
-        }
-        token.setPosition(coordinate.col * distance + offset + 45, row * height + 130); //odd rows
-        //render();
-        window.draw(token);
-    }
-}
+//     window.draw(token);
+    // for (int row = 0; row <= coordinate.row; ++row) {
+    //     if (row > 0) {
+    //         cout << "here" << endl;
+    //         tokenBackground.setPosition(coordinate.col * distance + offset + 45, row - 1 * height + 130);
+    //         //render();
+    //         window.draw(tokenBackground);
+    //     }
+    //     token.setPosition(coordinate.col * distance + offset + 45, row * height + 130); //odd rows
+    //     //render();
+    //     window.draw(token);
+    // }
+// }
 
 void Board::handleInput() {
     sf::Event event;

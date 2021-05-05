@@ -29,12 +29,14 @@ public:
     sf::RenderWindow* getWindow();
     void intitalize();
     void render();
-    void addToken(Coordinate coordinate, sf::Color& color);
+    //void addToken(Coordinate coordinate, sf::Color& color);
     void handleInput();
     bool isDone() const;
 private:
     char board[ROWSIZE][COLSIZE];
     sf::RenderWindow window;
+    const sf::Color background = sf::Color(200, 200, 200, 255);
+    const sf::Color tokenOutline = sf::Color(0, 51, 102, 255);
     bool done;
 };
 #endif

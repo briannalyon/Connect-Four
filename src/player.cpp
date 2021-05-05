@@ -38,7 +38,7 @@
             coordinate = get();
             placed = board->placeToken(coordinate, token);
         }
-        board->addToken(coordinate, color);
+        //board->addToken(coordinate, color);
     }
 
     /**
@@ -55,7 +55,7 @@
             coordinate = board->randomizeCoordinate();
             placed = board->placeToken(coordinate, token);
         }
-        board->addToken(coordinate, color);
+        //board->addToken(coordinate, color);
     }
 
     /**
