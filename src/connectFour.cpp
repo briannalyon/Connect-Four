@@ -29,18 +29,24 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window->close();
 
-            //if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Num1) {
-                col = 1;
-                cout << "here" << endl;
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Num1) {
+                    col = 1;
+                    cout << "here" << endl;
+                }
+                else if (event.key.code == sf::Keyboard::Num2) col = 2;
+                else if (event.key.code == sf::Keyboard::Num3) col = 3;
+                else if (event.key.code == sf::Keyboard::Num4) col = 4;
+                else if (event.key.code == sf::Keyboard::Num5) col = 5;
+                else if (event.key.code == sf::Keyboard::Num6) col = 6;
+                else if (event.key.code == sf::Keyboard::Num7) col = 7;
             }
-            // else if (event.key.code == sf::Keyboard::Num2) col = 2;
-            // else if (event.key.code == sf::Keyboard::Num3) col = 3;
-            // else if (event.key.code == sf::Keyboard::Num4) col = 4;
-            // else if (event.key.code == sf::Keyboard::Num5) col = 5;
-            // else if (event.key.code == sf::Keyboard::Num6) col = 6;
-            // else if (event.key.code == sf::Keyboard::Num7) col = 7;
-            //}
+
+            // FIX: GETTING KEY INPUT 
+            // FIX: SFML TEXT (COLUMN NUMBERS, CURRENT PLAYER W/COLOR, WINNER)
+            // TODO: PRESENTATION OUTLINE
+            // TODO: COME UP WITH PRESENTATION QUESTIONS FOR OTHER TEAMS
+            // NOTE: ASK ABOUT INHERITENCE AND POLYMORPHISM
 
                 
             if (player == 1) {
