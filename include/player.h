@@ -7,16 +7,17 @@
 
 class Player {
 public:
-    Player(char token, bool isComputer, Board *board);
+    Player(char token, sf::Color color, bool isComputer, Board *board);
     void move();
-    void manuallyPlace(int token);
-    void randomlyPlace(int token);
+    void manuallyPlace(char token);
+    void randomlyPlace(char token);
     int getPlacement(int col); 
     Coordinate get();
     void outputBoard();
     bool hasWon(char token);
 private:
     char token;
+    sf::Color color;
     bool isComputer;
     Board *board;
     
