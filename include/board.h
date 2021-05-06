@@ -28,7 +28,8 @@ public:
     bool isConnected(char token);
     void setPlayer(char token);
 
-    // SFML FUNCTIONS 
+    // ---- SFML FUNCTIONS ---- //
+
     sf::RenderWindow* getWindow();
     void intitalize();
     void render();
@@ -38,7 +39,16 @@ private:
     sf::RenderWindow window;
     const sf::Color background = sf::Color(200, 200, 200, 255);
     const sf::Color tokenOutline = sf::Color(0, 51, 102, 255);
-    int test = 0;
     char currPlayer;
+    sf::Font font;
+    sf::Text num;
+    sf::Text playerOne;
+    sf::Text playerTwo;
+    sf::Text playerOneWin;
+    sf::Text playerTwoWin;
+    sf::RectangleShape header;
+    sf::CircleShape emptyToken;
+    sf::CircleShape redToken;
+    sf::CircleShape yellowToken;
 };
 #endif
