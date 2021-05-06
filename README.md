@@ -8,7 +8,7 @@ Connect Four is a two-player connection board game, in which the players choose 
 
 ## Authors
 ### Brianna Lyon
-Contributed to all aspects of the project, but focused their attention on implementation aspects of the game. 
+Contributed to all aspects of the project, but focused their attention on game implementation.
 
 ### Josie Wicklund
 Contributed to all aspects of the project, but focused their attention on the graphical user interface SFML.
