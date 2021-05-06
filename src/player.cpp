@@ -1,24 +1,10 @@
 #include "player.h"
 
 /**
- * @brief Construct a new Player:: Player object
- * 
- * @param token Player's token
- * @param isComputer determines if AI is needed
- * @param board Game board
- */
-Player::Player(char token, bool isComputer, Board *board) {
-    this->token = token;
-    this->isComputer = isComputer;
-    this->board = board;
-}
-
-/**
  * @brief Determines if current player is a human or computer
  * 
  */
 void Player::move(int col) {
-    cout << "Placing Player Token" << endl;
     isComputer ? randomlyPlace(token) : manuallyPlace(token, col);
 }
 
@@ -64,16 +50,10 @@ void Player::randomlyPlace(char token) {
 Coordinate Player::get(int col) {
     Coordinate coordinate;
     bool set = false;
-    if (isComputer) {
-        board->randomizeCoordinate();
-    } else {
-        while (!set) {
-            //cout << "Enter valid column: ";
-            // cin >> coordinate.col;
-            coordinate.col = col - 1;
-            coordinate.row = board->findAvailableRow(coordinate.col);
-            set = board->setCoordinate(coordinate.row, coordinate.col);
-        }
+    while (!set) {
+        coordinate.col = col - 1;
+        coordinate.row = board->findAvailableRow(coordinate.col);
+        set = board->setCoordinate(coordinate.row, coordinate.col);
     }
     return coordinate;
 }
@@ -93,6 +73,15 @@ void Player::outputBoard() {
  * @return true Player has won
  * @return false No winner
  */
-bool Player::hasWon(char token) {
+bool Player::hasWon() {
     return board->isConnected(token);
+}
+
+/**
+ * @brief Retrieves player token
+ * 
+ * @return char Symbol representing player token
+ */
+char Player::getToken() {
+    return token;
 }

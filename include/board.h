@@ -37,8 +37,6 @@ public:
 private:
     char board[ROWSIZE][COLSIZE];
     sf::RenderWindow window;
-    const sf::Color background = sf::Color(200, 200, 200, 255);
-    const sf::Color tokenOutline = sf::Color(0, 51, 102, 255);
     char currPlayer;
     sf::Font font;
     sf::Text num;
@@ -50,5 +48,11 @@ private:
     sf::CircleShape emptyToken;
     sf::CircleShape redToken;
     sf::CircleShape yellowToken;
+    const sf::Color background = sf::Color(200, 200, 200, 255);
+    const sf::Color tokenOutline = sf::Color(0, 51, 102, 255);
+    const sf::Color color_yellow = sf::Color(247, 207, 74, 255);
+    const sf::Color color_red = sf::Color(216, 28, 28, 255);
+    const sf::Color color_blue = sf::Color(0, 76, 153, 255);
 };
+
 #endif

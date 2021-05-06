@@ -19,36 +19,36 @@ Board::Board() {
     num.setString("         1               2              3               4              5               6               7 ");
     num.setCharacterSize(30);
     num.setStyle(sf::Text::Bold);
-    num.setFillColor(sf::Color(0, 76, 153, 255));
+    num.setFillColor(sf::Color(color_blue));
     num.setPosition(0, 50);
 
     playerOne.setFont(font);
     playerOne.setString("Player 1");
     playerOne.setCharacterSize(30);
     playerOne.setStyle(sf::Text::Bold);
-    playerOne.setFillColor(sf::Color(247, 207, 74, 255));
+    playerOne.setFillColor(sf::Color(color_yellow));
     playerOne.setPosition(0, 0);
 
     playerTwo.setFont(font);
     playerTwo.setString("Player 2");
     playerTwo.setCharacterSize(30);
     playerTwo.setStyle(sf::Text::Bold);
-    playerTwo.setFillColor(sf::Color(216, 28, 28, 255));
+    playerTwo.setFillColor(sf::Color(color_red));
     playerTwo.setPosition(0, 0);
-
-    playerOneWin.setFont(font);
-    playerOneWin.setString("Wins!!!");
-    playerOneWin.setCharacterSize(30);
-    playerOneWin.setStyle(sf::Text::Bold);
-    playerOneWin.setFillColor(sf::Color(216, 28, 28, 255));
-    playerOneWin.setPosition(135, 0);
 
     playerTwoWin.setFont(font);
     playerTwoWin.setString("Wins!!!");
     playerTwoWin.setCharacterSize(30);
     playerTwoWin.setStyle(sf::Text::Bold);
-    playerTwoWin.setFillColor(sf::Color(247, 207, 74, 255));
-    playerTwoWin.setPosition(135, 0);
+    playerTwoWin.setFillColor(sf::Color(color_red));
+    playerTwoWin.setPosition(135, 0);   
+
+    playerOneWin.setFont(font);
+    playerOneWin.setString("Wins!!!");
+    playerOneWin.setCharacterSize(30);
+    playerOneWin.setStyle(sf::Text::Bold);
+    playerOneWin.setFillColor(sf::Color(color_yellow));
+    playerOneWin.setPosition(135, 0);
 
     header.setSize(sf::Vector2f(2400.f, 200.f));
     header.setFillColor(background);
@@ -62,12 +62,12 @@ Board::Board() {
     emptyToken.setOutlineColor(tokenOutline);
 
     redToken.setRadius(50.f);
-    redToken.setFillColor(sf::Color(216, 28, 28, 255));
+    redToken.setFillColor(sf::Color(color_red));
     redToken.setOutlineThickness(5);
     redToken.setOutlineColor(tokenOutline);
 
     yellowToken.setRadius(50.f);
-    yellowToken.setFillColor(sf::Color(247, 207, 74, 255));
+    yellowToken.setFillColor(sf::Color(color_yellow));
     yellowToken.setOutlineThickness(5);
     yellowToken.setOutlineColor(tokenOutline);
 
@@ -93,61 +93,54 @@ void Board::display() {
 /**
  * @brief Places the player token in given coordinate
  * 
- * @param coordinate 
- * @param token 
- * @return true 
- * @return false 
+ * @param coordinate Coordinate of placement
+ * @param token Player's token
+ * @return true Token was successfully placed in array
+ * @return false Token was not successfully placed in array
  */
 bool Board::placeToken(Coordinate coordinate, char token) {
-    int row = coordinate.row;
-    int col = coordinate.col;
     if (!inBounds(coordinate) || !isClear(coordinate)) {
         return false;
     }
-    board[row][col] = token;
+    board[coordinate.row][coordinate.col] = token;
     return true;
 }
 
 /**
- * @brief 
+ * @brief Checks to see if target is clear
  * 
- * @param coordinate 
- * @return true 
- * @return false 
+ * @param coordinate Coordinate of placement
+ * @return true Coordinate is clear
+ * @return false Coordinate is not clear
  */
 bool Board::isClear(Coordinate coordinate) {
-    int row = coordinate.row;
-    int col = coordinate.col;
     bool check;
-    (board[row][col] != 'O') ? check = false : check = true;
+    (board[coordinate.row][coordinate.col] != 'O') ? check = false : check = true;
     return check;
 }
 
 /**
  * @brief Checks to see if coordinate is on the board
  * 
- * @param coordinate 
- * @return true 
- * @return false 
+ * @param coordinate Coordinate of placement
+ * @return true Coordinate is in bounds
+ * @return false Coordinate is not in bounds
  */
 bool Board::inBounds(Coordinate coordinate) {
-    int row = coordinate.row;
-    int col = coordinate.col;
-    bool check;
-    ((col > COLSIZE - 1 || col < 0) || (row > ROWSIZE - 1 || row < 0)) ? check = false : check = true;
-    return check;
+    if ((coordinate.col > COLSIZE - 1 || coordinate.col < 0) || (coordinate.row > ROWSIZE - 1 || coordinate.row < 0)) {
+        return false;
+    }
+    return true;
 }
 
 /**
  * @brief Updates the board with player's token
  * 
- * @param coordinate Coordinate to be updated
+ * @param coordinate Coordinate to be updated on the board
  * @param token Player's Token
  */
 void Board::updateBoard(Coordinate coordinate, char token) {
-    int row = coordinate.row;
-    int col = coordinate.col;
-    board[row][col] = token;
+    board[coordinate.row][coordinate.col] = token;
 }
 
 /**
@@ -159,7 +152,6 @@ void Board::updateBoard(Coordinate coordinate, char token) {
 Coordinate Board::randomizeCoordinate() {
     Coordinate coordinate;
     int col = rand() % COLSIZE;
-    cout << "Random Col: " << col << endl;
     coordinate.set(findAvailableRow(col), col);
     return coordinate;
 }
@@ -168,10 +160,10 @@ Coordinate Board::randomizeCoordinate() {
  * @brief Calls member function in class Coordinate to set member
  *        variables row and col
  * 
- * @param row 
- * @param col 
- * @return true 
- * @return false 
+ * @param row Row on board to be set
+ * @param col Column on board to be set
+ * @return true Coordinate was successfully set
+ * @return false Coordinate was not set successfully
  */
 bool Board::setCoordinate(int row, int col) {
     Coordinate coordinate;
@@ -282,26 +274,24 @@ void Board::render() {
     const float offset = distance / 20.f; 
     const float height = std::sqrt(std::pow(distance, 2.f) - std::pow(offset, 2.f)); 
 
-    window.clear(sf::Color(0, 76, 153, 255)); 
+    window.clear(sf::Color(color_blue)); 
     window.draw(header);
     window.draw(num);
 
     if (currPlayer == 'R') {
-        usleep(100000);
         window.draw(playerTwo);
     } else if (currPlayer == 'Y') {
-        usleep(100000);
         window.draw(playerOne);
     }
      
     for (int row = 0; row < ROWSIZE; ++row) {
         for (int col = 0; col < COLSIZE; ++col) {
-            if (board[row][col] == 'Y') {
-                yellowToken.setPosition(col * distance + offset + 30, row * height + 130);
-                window.draw(yellowToken);
-            } else if (board[row][col] == 'R') {
+            if (board[row][col] == 'R') {
                 redToken.setPosition(col * distance + offset + 30, row * height + 130);
                 window.draw(redToken);
+            } else if (board[row][col] == 'Y') {
+                yellowToken.setPosition(col * distance + offset + 30, row * height + 130);
+                window.draw(yellowToken);
             } else {
                 emptyToken.setPosition(col * distance + offset + 30, row * height + 130);
                 window.draw(emptyToken);
@@ -310,13 +300,9 @@ void Board::render() {
     }
 
     if (isConnected(currPlayer) && currPlayer == 'R') {
-        window.draw(playerOneWin);
-        window.display();
-        sleep(10);
-    } else if (isConnected(currPlayer) && currPlayer == 'Y') {
         window.draw(playerTwoWin);
-        window.display();
-        sleep(10);
+    } else if (isConnected(currPlayer) && currPlayer == 'Y') {
+        window.draw(playerOneWin);
     }
     window.display();
 }
