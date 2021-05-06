@@ -4,7 +4,9 @@
 #include "coordinate.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <cmath>
+#include <unistd.h>
 using std::cout;
 using std::endl;
 using std::cin;
@@ -24,19 +26,29 @@ public:
     bool setCoordinate(int row, int col);
     int findAvailableRow(int col);
     bool isConnected(char token);
+    void setPlayer(char token);
 
-    // SFML FUNCTIONS 
+    // ---- SFML FUNCTIONS ---- //
+
     sf::RenderWindow* getWindow();
     void intitalize();
     void render();
-    //void addToken(Coordinate coordinate, sf::Color& color);
-    void handleInput();
-    bool isDone() const;
+    
 private:
     char board[ROWSIZE][COLSIZE];
     sf::RenderWindow window;
     const sf::Color background = sf::Color(200, 200, 200, 255);
     const sf::Color tokenOutline = sf::Color(0, 51, 102, 255);
-    bool done;
+    char currPlayer;
+    sf::Font font;
+    sf::Text num;
+    sf::Text playerOne;
+    sf::Text playerTwo;
+    sf::Text playerOneWin;
+    sf::Text playerTwoWin;
+    sf::RectangleShape header;
+    sf::CircleShape emptyToken;
+    sf::CircleShape redToken;
+    sf::CircleShape yellowToken;
 };
 #endif
