@@ -8,21 +8,33 @@
 using std::cout;
 using std::endl;
 
+// SPECIFICS FOR PRESENTATION 
+
+// OBJECTIVES SLIDE
+// Brianna: Focus was on game implementation
+// Josie: Focus was on GUI and Final Presentation
+
+// ACCOMPLISHMENTS SLIDE
+// What did we learn? That we never want to touch another peice of code involving SFML
+// Learned more about the implementation of abstract classes
+
+// WE NEED TO UPDATE THE FLOW CHART JOSIE MADE YESTERDAY!!!!
+
 int main() {
 
     srand(time(0));
 
     bool won = false;
     int player = 1;
-    int col = -1;
+    int status = -1;
     Board board;
-    Player playerOne('Y', false, &board); 
-    Player playerTwo('R', false, &board); 
+    Human playerOne(&board); 
+    Computer playerTwo(&board); 
 
     sf::RenderWindow* window = board.getWindow();
     window->setKeyRepeatEnabled(false);
     window->display();
-    board.setPlayer('Y');
+    board.setPlayer(playerOne.getToken());
 
     cout << "Welcome to Connect Four!" << endl;
 
@@ -33,55 +45,35 @@ int main() {
 
             if (event.type == sf::Event::Closed) 
                 window->close();
-            if (event.type == sf::Event::KeyPressed) {
-                col = -1;
 
-                if (event.key.code == sf::Keyboard::Num1) col = 1;
-                else if (event.key.code == sf::Keyboard::Num2) col = 2;
-                else if (event.key.code == sf::Keyboard::Num3) col = 3;
-                else if (event.key.code == sf::Keyboard::Num4) col = 4;
-                else if (event.key.code == sf::Keyboard::Num5) col = 5;
-                else if (event.key.code == sf::Keyboard::Num6) col = 6;
-                else if (event.key.code == sf::Keyboard::Num7) col = 7;
+            if (player % 2 == 1) {
+                playerOne.delay();
+                status = playerOne.takeTurn(event);
+            } else {
+                playerTwo.delay();
+                status = playerTwo.takeTurn(event);
+            }
 
-                if (col != -1) {
-                    if (player == 1) {
-                        //playerOne.outputBoard();
-                        playerOne.move(col);
-
-                        won = playerOne.hasWon('Y');
-                        if (won) break;
-
-                        board.setPlayer('R');
-                        player = 2;
-
-                    } else {
-                        //playerTwo.outputBoard();
-                        playerTwo.move(col);
-
-                        won = playerTwo.hasWon('R');
-                        if (won) break;
-
-                        board.setPlayer('Y');
-                        player = 1;
-                    }
-                }
+            if (status == 0) {
+                continue;
+            } else if (status == 1) { //turn done
+                player = (player + 1) % 2;
+                break;
+            } else if (status == 2 ) { //win 
+                won = true;
+                break;
             }
         }
+        if (player % 2) {
+            board.setPlayer(playerOne.getToken());
+        } else {
+            board.setPlayer(playerTwo.getToken());
+        }
         board.render();
-        if (won) break;
+        if (won) {
+            sleep(10);
+            break;
+        }
     }
     return 0;
 }
-
-// TODO: PRESENTATION OUTLINE
-// TODO: COME UP WITH PRESENTATION QUESTIONS FOR OTHER TEAMS
-//what was the hardest part to complete in your project?
-
-// NOTE: ASK ABOUT INHERITENCE AND POLYMORPHISM
-
-//Inheritance is appropriate when
-// objects of the new class are a subset of the objects of the existing class, or 
-// objects of the new class will be used in the same ways as the objects of the existing class
-
-// Polymorphic code: Code that behaves differently when it acts on objects of different types

@@ -9,12 +9,9 @@ public:
     // setfillcolor
     // setoutlinethickness
     // setoutline color
-    sf::RectangleShape createR() {
 
-    }
-
-    sf::CircleShape createC() {
-
+    virtual void create() {
+      
     }
 
       void setWidth(float width) {
@@ -30,6 +27,8 @@ protected:
     float width;
     float height;
     float radius;
+    const sf::Color color_blue = sf::Color(200, 200, 200, 255);
+    const sf::Color color_dark_blue = sf::Color(0, 51, 102, 255);
 };
 
 class Rectangle: public Shape {
@@ -40,6 +39,8 @@ public:
       float getHeight() {
         return height;
       }
+
+private:
 };
 
 class Circle: public Shape {

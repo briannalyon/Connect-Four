@@ -6,12 +6,12 @@ Connect Four is a two-player connection board game, in which the players choose 
 2. On your turn, select any of the seven columns that you would like to drop your colored disc in.
 3. The game ends when there is a 4-in-a-row or a stalemate.  
 
-## Authors and Acknowledgment
+## Authors
 ### Brianna Lyon
-Short description here
+Contributed to all aspects of the project, but focused their attention on implementation aspects of the game. 
 
 ### Josie Wicklund
-Short description here
+Contributed to all aspects of the project, but focused their attention on the graphical user interface SFML.
 
 ## Project Status
-Describe where the project left off/intentions for the future
+This project was designed for the final project in our CS-151 course at North Idaho College. Due to the time constraints and unexpected challenges, we were unable to implement a more complex artificial intelligence such as the "minimax" algorithm. Neither of us intend on progressing further with the project as it currently stands. 
