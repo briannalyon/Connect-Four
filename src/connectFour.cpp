@@ -8,18 +8,6 @@
 using std::cout;
 using std::endl;
 
-// SPECIFICS FOR PRESENTATION 
-
-// OBJECTIVES SLIDE
-// Brianna: Focus was on game implementation
-// Josie: Focus was on GUI and Final Presentation
-
-// ACCOMPLISHMENTS SLIDE
-// What did we learn? That we never want to touch another peice of code involving SFML
-// Learned more about the implementation of abstract classes
-
-// WE NEED TO UPDATE THE FLOW CHART JOSIE MADE YESTERDAY!!!!
-
 int main() {
 
     srand(time(0));

@@ -25,7 +25,6 @@ void Player::manuallyPlace(char token, int col) {
     }
 }
 
-
 /**
  * @brief Calls functions to place token until successful
  *        and redisplay's the board to terminal

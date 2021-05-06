@@ -38,4 +38,5 @@ public:
     int takeTurn(sf::Event &event);
     void delay();
 };
+
 #endif
